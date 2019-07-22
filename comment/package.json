@@ -1,0 +1,33 @@
+{
+  "name": "comment",
+  "version": "1.0.0",
+  "description": "microservice for comments",
+  "main": "index.js",
+  "scripts": {
+    "doc": "node node_modules/apidoc/bin/apidoc -i routes -o docs",
+    "html-doc": "node node_modules/documentation/bin/documentation.js build  main.js -f html -o docs",
+    "dev": "nodemon server/main.js",
+    "start": "node server/main.js"
+  },
+  "keywords": [
+    "node",
+    "mocha",
+    "microservices",
+    "docker"
+  ],
+  "author": "Ravishankar S R",
+  "license": "(MIT OR Apache-2.0)",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.5",
+    "request": "^2.88.0",
+    "sequelize": "^5.10.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "apidoc": "^0.17.7",
+    "nodemon": "^1.19.1"
+  }
+}

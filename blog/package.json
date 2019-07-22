@@ -2,12 +2,12 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "microservice for blogs",
-  "main": "index.js",
+  "main": "server/main.js",
   "scripts": {
     "doc": "node node_modules/apidoc/bin/apidoc -i routes -o docs",
     "html-doc": "node node_modules/documentation/bin/documentation.js build  main.js -f html -o docs",
     "dev": "nodemon server/main.js",
-    "start": "node main.js"
+    "start": "node server/main.js"
   },
   "keywords": [
     "node",
