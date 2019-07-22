@@ -1,0 +1,452 @@
+define({ "api": [
+  {
+    "type": "post",
+    "url": "/api/v1/blogs",
+    "title": "Creates a blog with 'draft' status",
+    "version": "1.0.0",
+    "name": "createBlog",
+    "group": "Blogs",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "const data = {\n  \"content\": \"It creates a blog with draft status\"\n}\n\n$http.post(url, data)\n  .success((res, status) => doSomethingHere())\n  .error((err, status) => doSomethingHere());",
+        "type": "js"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "blog_id",
+            "description": "<p>The blog Id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Response message</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates successful or not</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success response:",
+          "content": "    HTTPS 200 OK\n\t  {\n   \t\"success\": true,\n   \t\"message\": \"blog created successfully!\",\n   \t\"blog_id\": \"229956ba-f819-4b5e-824e-4bf1ff60eb49\"\n\t  }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "RequestFailed",
+            "description": "<p>Internal server error.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidInput",
+            "description": "<p>Invalid input passed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "RequestFailed:",
+          "content": "HTTP/1.1 400 RequestFailed\n{\n  \"error\": \"Internal server error. Try again!\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "InvalidInput:",
+          "content": "HTTP/1.1 400 InvalidInput\n{\n  \"error\": \"The content is required\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Blogs"
+  },
+  {
+    "type": "delete",
+    "url": "/api/v1/blogs/:blogId",
+    "title": "Deletes the blog and all related comments",
+    "version": "1.0.0",
+    "name": "deleteBlog",
+    "group": "Blogs",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "$http.delete(url)\n  .success((res, status) => doSomethingHere())\n  .error((err, status) => doSomethingHere());",
+        "type": "js"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Response message</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates successful or not</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success response:",
+          "content": "    HTTPS 200 OK\n    {\n   \t\"success\": true,\n   \t\"message\": \"blog deleted successfully!\"\n\t }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "RequestFailed",
+            "description": "<p>Internal server error.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidBlogId",
+            "description": "<p>Invalid blog id passed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "RequestFailed:",
+          "content": "HTTP/1.1 400 RequestFailed\n{\n  \"error\": \"Internal server error. Try again!\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "InvalidBlogId:",
+          "content": "HTTP/1.1 400 InvalidBlogId\n{\n  \"error\": \"blog doesn't exists\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Blogs"
+  },
+  {
+    "type": "get",
+    "url": "/api/v1/blogs/all",
+    "title": "Retrieve all the blogs in the blogger",
+    "version": "1.0.0",
+    "name": "getAllBlogs",
+    "group": "Blogs",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "$http.get(url)\n  .success((res, status) => doSomethingHere())\n  .error((err, status) => doSomethingHere());",
+        "type": "js"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JsonArray",
+            "optional": false,
+            "field": "blogs",
+            "description": "<p>The blogs</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Response message</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates successful or not</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success response:",
+          "content": "    HTTPS 200 OK\n\t{\n\t    \"success\": true,\n\t    \"message\": \"blogs fetched successfully!\",\n\t    \"blogs\": [\n\t        {\n\t            \"id\": \"1\",\n\t            \"content\": \"hello mr Im your client\",\n\t            \"status\": \"deleted\",\n\t            \"createdAt\": \"2019-07-22T07:07:23.000Z\",\n\t            \"updatedAt\": \"2019-07-22T08:03:12.000Z\"\n\t        },\n\t        {\n\t            \"id\": \"8018b1a0-37a4-4c6b-9e4e-6ecd4d43ad54\",\n\t            \"content\": \"hello mr Im your client\",\n\t            \"status\": \"draft\",\n\t            \"createdAt\": \"2019-07-22T10:09:47.000Z\",\n\t            \"updatedAt\": \"2019-07-22T10:09:47.000Z\"\n\t        }\n\t    ]\n\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "RequestFailed",
+            "description": "<p>Internal server error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "RequestFailed:",
+          "content": "HTTP/1.1 400 RequestFailed\n{\n  \"error\": \"Internal server error. Try again!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Blogs"
+  },
+  {
+    "type": "get",
+    "url": "/api/v1/blogs/:blogId",
+    "title": "Get a blog by its Id",
+    "version": "1.0.0",
+    "name": "getBlog",
+    "group": "Blogs",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "$http.get(url)\n  .success((res, status) => doSomethingHere())\n  .error((err, status) => doSomethingHere());",
+        "type": "js"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Json",
+            "optional": false,
+            "field": "blog",
+            "description": "<p>The blog details</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Response message</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates successful or not</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success response:",
+          "content": "    HTTPS 200 OK\n\t{\n\t    \"success\": true,\n\t    \"message\": \"blog fetched successfully!\",\n\t    \"blog\": {\n\t        \"id\": \"1\",\n\t        \"content\": \"hello mr Im your client\",\n\t        \"status\": \"deleted\",\n\t        \"createdAt\": \"2019-07-22T07:07:23.000Z\",\n\t        \"updatedAt\": \"2019-07-22T08:03:12.000Z\"\n\t    }\n\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "RequestFailed",
+            "description": "<p>Internal server error.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidBlogId",
+            "description": "<p>Invalid blog id passed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "RequestFailed:",
+          "content": "HTTP/1.1 400 RequestFailed\n{\n  \"error\": \"Internal server error. Try again!\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "InvalidBlogId:",
+          "content": "HTTP/1.1 400 InvalidBlogId\n{\n  \"error\": \"blog doesn't exists\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Blogs"
+  },
+  {
+    "type": "get",
+    "url": "/api/v1/blogs",
+    "title": "Retrieve all the published blogs",
+    "version": "1.0.0",
+    "name": "getPublishedLogs",
+    "group": "Blogs",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "$http.get(url)\n  .success((res, status) => doSomethingHere())\n  .error((err, status) => doSomethingHere());",
+        "type": "js"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "JsonArray",
+            "optional": false,
+            "field": "blogs",
+            "description": "<p>The blogs</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Response message</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates successful or not</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success response:",
+          "content": "    HTTPS 200 OK\n\t{\n\t    \"success\": true,\n\t    \"message\": \"blogs fetched successfully!\",\n\t    \"blogs\": [\n\t        {\n\t            \"id\": \"1\",\n\t            \"content\": \"hello Im your client\",\n\t            \"createdAt\": \"2019-07-22T07:07:23.000Z\",\n\t            \"updatedAt\": \"2019-07-22T08:03:12.000Z\"\n\t        },\n\t        {\n\t            \"id\": \"8018b1a0-37a4-4c6b-9e4e-6ecd4d43ad54\",\n\t            \"content\": \"hello Im also your client \",\n\t            \"createdAt\": \"2019-07-22T10:09:47.000Z\",\n\t            \"updatedAt\": \"2019-07-22T10:09:47.000Z\"\n\t        }\n\t    ]\n\t}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "RequestFailed",
+            "description": "<p>Internal server error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "RequestFailed:",
+          "content": "HTTP/1.1 400 RequestFailed\n{\n  \"error\": \"Internal server error. Try again!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Blogs"
+  },
+  {
+    "type": "post",
+    "url": "/api/v1/blogs/:blogId/publish",
+    "title": "Updates blog status to published",
+    "version": "1.0.0",
+    "name": "publishBlog",
+    "group": "Blogs",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "$http.post(url)\n  .success((res, status) => doSomethingHere())\n  .error((err, status) => doSomethingHere());",
+        "type": "js"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Response message</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates successful or not</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success response:",
+          "content": "    HTTPS 200 OK\n    {\n\t\t    \"success\": true,\n\t\t    \"message\": \"blogs published successfully!\"\n\t  }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "RequestFailed",
+            "description": "<p>Internal server error.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidBlogId",
+            "description": "<p>Invalid blog id passed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "RequestFailed:",
+          "content": "HTTP/1.1 400 RequestFailed\n{\n  \"error\": \"Internal server error. Try again!\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "InvalidBlogId:",
+          "content": "HTTP/1.1 400 InvalidBlogId\n{\n  \"error\": \"blog doesn't exists\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routes/index.js",
+    "groupTitle": "Blogs"
+  }
+] });

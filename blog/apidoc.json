@@ -1,0 +1,10 @@
+{
+  "name": "Blog API Documentation",
+  "version": "1.0.0",
+  "description": "documentation of blog API",
+  "title": "Blog API",
+  "template": {
+  	"withCompare": true,
+  	"withGenerator": true
+  }
+}
